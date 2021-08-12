@@ -8,7 +8,7 @@
                 <span class='page-link current'>
                     {{- .PageNumber -}}
                 </span>
-                {{ else if or (or (eq . $.Paginator.First) (eq . $.Paginator.Prev)) (or  (eq . $.Paginator.Next) (eq . $.Paginator.Last )) }}
+                {{ else if or (or (lt .PageNumber 5) (eq . $.Paginator.Prev)) (or  (eq . $.Paginator.Next) (eq . $.Paginator.Last )) }}
                     <a class='page-link' href='{{ .URL }}'>
                         {{- .PageNumber -}}
                     </a>

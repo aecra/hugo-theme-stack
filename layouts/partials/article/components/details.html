@@ -15,11 +15,14 @@
         </a>
     </h2>
 
-    {{ with .Params.description }}
     <h3 class="article-subtitle">
-        {{ . }}
+        {{ if .Params.description }}
+            {{ .Params.description }}
+        {{ else }}
+            {{ .Summary }}
+        {{ end }}
     </h3>
-    {{ end }}
+
 
     {{ if or (not .Date.IsZero) (.Site.Params.article.readingTime) }}
     <footer class="article-time">

@@ -33,6 +33,12 @@
             --left-sidebar-max-width: 15%;
             --right-sidebar-max-width: 25%;
         }
+
+        @include respond(2xl) {
+            max-width: 1800px;
+            --left-sidebar-max-width: 15%;
+            --right-sidebar-max-width: 25%;
+        }
     }
 
     &.compact {
