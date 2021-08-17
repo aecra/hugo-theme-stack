@@ -106,7 +106,7 @@
     z-index: 2;
     cursor: pointer;
 
-    @include respond(md) {
+    @include respond(lg) {
         display: none;
     }
 
@@ -142,7 +142,7 @@
         display: block;
     }
 
-    @include respond(md) {
+    @include respond(lg) {
         align-items: flex-end;
         display: flex;
         background-color: transparent;
@@ -169,7 +169,7 @@
             }
         }
 
-        @include respond(md) {
+        @include respond(lg) {
             width: 100%;
             padding: 10px 0;
         }
