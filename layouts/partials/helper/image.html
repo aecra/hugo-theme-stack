@@ -51,7 +51,7 @@
 
         {{ else }}
             <!-- External image -->
-            {{ $result = merge $result (dict "permalink" (relURL $defaultImageSetting.src)) }}
+            {{ with .Context.File }}{{ $result = merge $result (dict "permalink" (relURL (replace $defaultImageSetting.src "<>" (print .UniqueID)))) }}{{ end }}
         {{ end }}
         
     {{ end }}
