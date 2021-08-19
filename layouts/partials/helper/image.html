@@ -12,6 +12,10 @@
         {{ $result = merge $result (dict "permalink" $imageValue) }}
     {{ else }}
         {{ $pageResourceImage := .Context.Resources.GetMatch (printf "%s" ($imageValue | safeURL)) }}
+
+        {{ if not $pageResourceImage }}
+            {{ $pageResourceImage = resources.GetMatch $imageValue }}
+        {{ end }}
         
         {{ if $pageResourceImage }}
             <!-- If image is found under page bundle -->
@@ -39,6 +43,19 @@
         {{ if $defaultImageSetting.local }}
             {{ $siteResourceImage := resources.GetMatch (printf "%s" ($defaultImageSetting.src | safeURL)) }}
 
+            {{ $path := print "/assets/" $defaultImageSetting.src }}
+            {{ if and (fileExists $path) ((os.Stat $path).IsDir)}}
+                {{ $imgDir := readDir (print "/assets/" $defaultImageSetting.src) }}
+                {{ if ne (len $imgDir) 0 }}
+                    {{ if .Context.File }}
+                        {{ $imgIndex := mod (int (printf "%.9x" .Context.File.UniqueID)) (len $imgDir) }}
+                        {{ $siteResourceImage = resources.GetMatch (print $defaultImageSetting.src (index $imgDir $imgIndex).Name) }}
+                    {{ else }}
+                        {{ $siteResourceImage = resources.GetMatch (print $defaultImageSetting.src (index $imgDir 0).Name) }}
+                    {{ end }}
+                {{ end }}
+            {{ end }}
+
             {{ if $siteResourceImage }}
                 <!-- Try search image under site's assets folder -->
                 {{ $result = merge $result (dict "permalink" $siteResourceImage.RelPermalink) }}
@@ -51,7 +68,11 @@
 
         {{ else }}
             <!-- External image -->
-            {{ with .Context.File }}{{ $result = merge $result (dict "permalink" (relURL (replace $defaultImageSetting.src "<>" (print .UniqueID)))) }}{{ end }}
+            {{ if .Context.File }}
+                {{ $result = merge $result (dict "permalink" (relURL (replace $defaultImageSetting.src "<version>" (printf "%.9x" .Context.File.UniqueID)))) }}
+            {{ else }}
+                {{ $result = merge $result (dict "permalink" (relURL $defaultImageSetting.src)) }}
+            {{ end }}
         {{ end }}
         
     {{ end }}
