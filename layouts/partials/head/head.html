@@ -4,6 +4,10 @@
 {{- $description := partialCached "data/description" . .RelPermalink -}}
 <meta name='description' content='{{ $description }}'>
 
+{{- if and .IsPage .Params.tags -}}
+    <meta name='keywords' content='{{ delimit .Params.tags ", " }}'>
+{{- end -}}
+
 {{- $title := partialCached "data/title" . .RelPermalink -}}
 <title>{{ $title }}</title>
 
