@@ -39,7 +39,11 @@
         {{ $active := or (eq $currentPage.Title .Name) (or ($currentPage.HasMenuCurrent "main" .) ($currentPage.IsMenuCurrent "main" .)) }}
 
         <li {{ if $active }} class='current' {{ end }}>
-            <a href='{{ .URL }}' {{ if eq .Params.newTab true }}target="_blank"{{ end }}>
+            {{ $url := .URL }}
+            {{ if and $.Site.Params.TrimTrailingSlash ( ne .URL "/" ) }}
+                {{ $url = $url | replaceRE "/$" "" }}
+            {{ end }}
+            <a href='{{ $url }}' {{ if eq .Params.newTab true }}target="_blank"{{ end }}>
                 {{ if .Pre }}
                     {{ partial "helper/icon" .Pre }}
                 {{ end }}

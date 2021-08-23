@@ -1,7 +1,11 @@
 {{- $query := first 1 (where .Site.Pages "Layout" "==" "search") -}}
 {{- if $query -}}
     {{- $searchPage := index $query 0 -}}
-    <form action="{{ $searchPage.RelPermalink }}" class="search-form widget" {{ with .OutputFormats.Get "json" -}}data-json="{{ .Permalink }}" {{- end }}>
+    {{ $url := $searchPage.RelPermalink }}
+    {{ if .Site.Params.TrimTrailingSlash }}
+        {{ $url = $url | replaceRE "/$" "" }}
+    {{ end }}
+    <form action="{{ $url }}" class="search-form widget" {{ with .OutputFormats.Get "json" -}}data-json="{{ .Permalink }}" {{- end }}>
         <p>
             <label>{{ T "search.title" }}</label>
             <input name="keyword" required placeholder="{{ T `search.placeholder` }}" />

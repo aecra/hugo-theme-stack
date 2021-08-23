@@ -5,7 +5,11 @@
     {{- end -}}
 {{ end }}
 {{ define "main" }}
-<form action="{{ .Permalink }}" class="search-form"{{ with .OutputFormats.Get "json" -}} data-json="{{ .Permalink }}"{{- end }}>
+{{ $url := .Permalink }}
+{{ if .Site.Params.TrimTrailingSlash }}
+    {{ $url = $url | replaceRE "/$" "" }}
+{{ end }}
+<form action="{{ $url }}" class="search-form"{{ with .OutputFormats.Get "json" -}} data-json="{{ .Permalink }}"{{- end }}>
     <p>
         <label>{{ T "search.title" }}</label>
         <input name="keyword" placeholder="{{ T `search.placeholder` }}" />

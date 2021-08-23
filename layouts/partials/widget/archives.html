@@ -16,7 +16,11 @@
             {{ range $index, $item := first (add .Site.Params.widgets.archives.limit 1) ($archives) }}
                 {{- $id := lower (replace $item.Key " " "-") -}}
                 <div class="archives-year">
-                    <a href="{{ $archivesPage.RelPermalink }}#{{ $id }}">
+                    {{ $url := $archivesPage.RelPermalink }}
+                    {{ if $.Site.Params.TrimTrailingSlash }}
+                        {{ $url = $url | replaceRE "/$" "" }}
+                    {{ end }}
+                    <a href="{{ $url }}#{{ $id }}">
                         {{ if eq $index $.Site.Params.widgets.archives.limit }}
                             <span class="year">{{ T "widget.archives.more" }}</span>
                         {{ else }}

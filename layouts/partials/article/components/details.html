@@ -2,7 +2,11 @@
     {{ if .Params.categories }}
     <header class="article-category">
         {{ range (.GetTerms "categories") }}
-            <a href="{{ .RelPermalink }}" {{ with .Params.style }}style="background-color: {{ .background }}; color: {{ .color }};"{{ end }}>
+            {{ $url := .RelPermalink }}
+            {{ if .Site.Params.TrimTrailingSlash }}
+                {{ $url = $url | replaceRE "/$" "" }}
+            {{ end }}
+            <a href="{{ $url }}" {{ with .Params.style }}style="background-color: {{ .background }}; color: {{ .color }};"{{ end }}>
                 {{ .LinkTitle }}
             </a>
         {{ end }}
@@ -10,7 +14,11 @@
     {{ end }}
 
     <h2 class="article-title">
-        <a href="{{ .RelPermalink }}">
+        {{ $url := .RelPermalink }}
+        {{ if .Site.Params.TrimTrailingSlash }}
+            {{ $url = $url | replaceRE "/$" "" }}
+        {{ end }}
+        <a href='{{ $url }}'>
             {{- .Title -}}
         </a>
     </h2>

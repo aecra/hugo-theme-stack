@@ -11,14 +11,22 @@
 {{- $title := partialCached "data/title" . .RelPermalink -}}
 <title>{{ $title }}</title>
 
-<link rel='canonical' href='{{ .Permalink }}'>
+{{ $url := .Permalink | safeURL }}
+{{ if $.Site.Params.TrimTrailingSlash }}
+    {{ $url = $url | replaceRE "/$" "" }}
+{{ end }}
+<link rel='canonical' href='{{ $url }}'>
 
 {{- partial "head/style.html" . -}}
 {{- partial "head/script.html" . -}}
 {{- partial "head/opengraph/include.html" . -}}
 
 {{- range .AlternativeOutputFormats -}}
-    <link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink | safeURL }}">
+    {{ $url := .Permalink }}
+    {{ if $.Site.Params.TrimTrailingSlash }}
+        {{ $url = $url | replaceRE "/$" "" }}
+    {{ end }}
+    <link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ $url }}">
 {{- end -}}
 
 {{ with .Site.Params.favicon }}

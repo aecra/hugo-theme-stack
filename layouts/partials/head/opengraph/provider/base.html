@@ -3,7 +3,11 @@
 
 <meta property='og:title' content='{{ $title }}'>
 <meta property='og:description' content='{{ $description }}'>
-<meta property='og:url' content='{{ .Permalink }}'>
+{{ $url := .Permalink }}
+{{ if .Site.Params.TrimTrailingSlash }}
+    {{ $url = $url | replaceRE "/$" "" }}
+{{ end }}
+<meta property='og:url' content='{{ $url }}'>
 <meta property='og:site_name' content='{{ .Site.Title }}'>
 <meta property='og:type' content='
     {{- if .IsPage -}}
