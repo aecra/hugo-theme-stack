@@ -43,6 +43,9 @@ params:
 
     article:
         math: false
+        leftSide: true
+        menu: true
+        rightSide: true
         toc: true
         readingTime: true
         license:

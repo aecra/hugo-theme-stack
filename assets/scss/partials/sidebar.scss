@@ -19,9 +19,6 @@
     --sidebar-avatar-size: 120px;
     --sidebar-element-separation: 20px;
 
-    @include respond(lg) {
-        display: none;
-    }
 
     @include respond(xl) {
         display: flex;
@@ -50,9 +47,15 @@
             display: flex;
         }
 
-        .back-home {
+        >:first-child {
             width: 40%;
-            margin: 0 4%;
+            margin: 0 10% 0 0;
+            padding: 10px 4% 10px 7%;
+        }
+
+        >:last-child {
+            width: 40%;
+            margin: 0 0 0 10%;
             padding: 10px 4% 10px 7%;
         }
     }
