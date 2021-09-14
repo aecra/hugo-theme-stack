@@ -5,7 +5,7 @@
     {{ if .Site.Params.TrimTrailingSlash }}
         {{ $url = $url | replaceRE "/$" "" }}
     {{ end }}
-    <form action="{{ $url }}" class="search-form widget" {{ with .OutputFormats.Get "json" -}}data-json="{{ .Permalink }}" {{- end }}>
+    <form action="{{ $url }}" autocomplete="off" class="search-form widget" {{ with .OutputFormats.Get "json" -}}data-json="{{ .Permalink }}" {{- end }}>
         <p>
             <label>{{ T "search.title" }}</label>
             <input name="keyword" required placeholder="{{ T `search.placeholder` }}" />
