@@ -48,7 +48,9 @@
                 {{ $imgDir := readDir (print "/assets/" $defaultImageSetting.src) }}
                 {{ if ne (len $imgDir) 0 }}
                     {{ if .Context.File }}
-                        {{ $imgIndex := mod (int (printf "%.9x" .Context.File.UniqueID)) (len $imgDir) }}
+                        {{ $index := mod (int (printf "%.9x" .Context.File.UniqueID)) (len $imgDir) }}
+                        {{ $salt := index (seq (len $imgDir) | shuffle) 0 }}
+                        {{ $imgIndex := mod (add $index $salt)  (len $imgDir) }}
                         {{ $siteResourceImage = resources.GetMatch (print $defaultImageSetting.src (index $imgDir $imgIndex).Name) }}
                     {{ else }}
                         {{ $siteResourceImage = resources.GetMatch (print $defaultImageSetting.src (index $imgDir 0).Name) }}
