@@ -10,7 +10,7 @@
                 </span>
                 {{ else if or (or (lt .PageNumber 5) (eq . $.Paginator.Prev)) (or  (eq . $.Paginator.Next) (eq . $.Paginator.Last )) }}
                     {{ $url := .URL }}
-                    {{ if $.Site.Params.TrimTrailingSlash }}
+                    {{ if and $.Site.Params.TrimTrailingSlash (ne $url "/") }}
                         {{ $url = $url | replaceRE "/$" "" }}
                     {{ end }}
                     <a class='page-link' href='{{ $url }}'>
