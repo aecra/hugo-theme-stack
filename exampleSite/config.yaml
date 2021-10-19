@@ -50,14 +50,22 @@ params:
         leftSide: true
         menu: false
         rightSide: true
-        toc: true
+        widgets:
+            enabled:
+                - search
+                - toc
+                - tag-cloud
+
+            tagCloud:
+                limit: 10
+
         readingTime: true
         license:
-            enabled: true
+            enabled: false
             default: Licensed under CC BY-NC-SA 4.0
 
     comments:
-        enabled: true
+        enabled: false
         provider: disqus
 
         disqusjs:

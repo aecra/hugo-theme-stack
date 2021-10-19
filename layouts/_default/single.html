@@ -1,15 +1,8 @@
 {{ define "body-class" }}
-    {{ $TOCEnabled := default (default false .Site.Params.article.toc) .Params.toc }}
-    {{- .Scratch.Set "hasTOC" (and (ge (len .TableOfContents) 100) $TOCEnabled) -}}
     article-page
 {{ end }}
 
 {{ define "container-class" }}
-    <!-- {{ if (.Scratch.Get "hasTOC") }}
-        extended
-    {{ else }}
-        on-phone--column {{ if .Site.Params.widgets.enabled }}extended{{ else }}compact{{ end }}
-    {{ end }} -->
     on-phone--column {{ if .Site.Params.widgets.enabled }}extended{{ else }}compact{{ end }}
 {{ end }}
 

@@ -5,7 +5,11 @@
     <h2 class="widget-title section-title">{{ T "widget.tagCloud.title" }}</h2>
 
     <div class="tagCloud-tags">
-        {{ range first .Site.Params.widgets.tagCloud.limit .Site.Taxonomies.tags.ByCount }}
+        {{ $weights := .Site.Params.article.widgets }}
+        {{if .IsHome }}
+            {{ $weights = .Site.Params.widgets }}
+        {{ end }}
+        {{ range first $weights.tagCloud.limit .Site.Taxonomies.tags.ByCount }}
             {{ $url := .Page.RelPermalink }}
             {{ if $.Site.Params.TrimTrailingSlash }}
                 {{ $url = $url | replaceRE "/$" "" }}

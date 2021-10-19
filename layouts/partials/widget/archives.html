@@ -11,9 +11,13 @@
         {{ $notHidden := where .Site.RegularPages "Params.hidden" "!=" true }}
         {{ $filtered := ($pages | intersect $notHidden) }}
         {{ $archives := $filtered.GroupByDate "2006" }}
-        
+        {{ $weights := .Site.Params.article.widgets }}
+        {{if .IsHome }}
+            {{ $weights = .Site.Params.widgets }}
+        {{ end }}
+
         <div class="widget-archive--list">
-            {{ range $index, $item := first (add .Site.Params.widgets.archives.limit 1) ($archives) }}
+            {{ range $index, $item := first (add $weights.archives.limit 1) ($archives) }}
                 {{- $id := lower (replace $item.Key " " "-") -}}
                 <div class="archives-year">
                     {{ $url := $archivesPage.RelPermalink }}
@@ -21,7 +25,7 @@
                         {{ $url = $url | replaceRE "/$" "" }}
                     {{ end }}
                     <a href="{{ $url }}#{{ $id }}">
-                        {{ if eq $index $.Site.Params.widgets.archives.limit }}
+                        {{ if eq $index $weights.archives.limit }}
                             <span class="year">{{ T "widget.archives.more" }}</span>
                         {{ else }}
                             <span class="year">{{ .Key }}</span>

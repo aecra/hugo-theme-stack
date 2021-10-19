@@ -1,4 +1,4 @@
-{{ if (.Scratch.Get "hasTOC") }}
+{{ if (and (ge (len .TableOfContents) 100)) }}
     <section class="widget archives">
         <div class="widget-icon">
             {{ partial "helper/icon" "hash" }}
