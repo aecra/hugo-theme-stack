@@ -1,7 +1,14 @@
-{{ if .Site.Params.widgets.enabled }}
+{{ if (and .IsHome .Site.Params.widgets.enabled) }}
     {{ $context := . }}
     <aside class="sidebar right-sidebar sticky">
         {{ range $widget := .Site.Params.widgets.enabled }}
+            {{ partial (printf "widget/%s" $widget) $context }}
+        {{ end }}
+    </aside>
+{{ else if .Site.Params.article.widgets.enabled }}
+    {{ $context := . }}
+    <aside class="sidebar right-sidebar sticky">
+        {{ range $widget := .Site.Params.article.widgets.enabled }}
             {{ partial (printf "widget/%s" $widget) $context }}
         {{ end }}
     </aside>
