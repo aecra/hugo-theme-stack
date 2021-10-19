@@ -11,7 +11,6 @@
     flex-direction: column;
     flex-shrink: 0;
 
-    width: 100%;
     padding: 30px 0 15px 25px;
     max-width: none;
 
@@ -40,24 +39,6 @@
 .right-sidebar {
     flex-shrink: 0;
     display: none;
-
-    #article-toolbar {
-        @media(max-width: 1279px) {
-            display: flex;
-        }
-
-        >:first-child {
-            width: 40%;
-            margin: 0 10% 0 0;
-            padding: 10px 4% 10px 7%;
-        }
-
-        >:last-child {
-            width: 40%;
-            margin: 0 0 0 10%;
-            padding: 10px 4% 10px 7%;
-        }
-    }
 
     &.sticky {
         top: 0;
