@@ -35,7 +35,7 @@
                         height="{{ $Height }}" 
                         loading="lazy">
                 {{ else }}
-                    <img src="{{ $image.permalink }}" loading="lazy" alt="Featured image of post {{ .Title }}" />
+                    <img src="{{ $image.permalink }}?imageMogr2/crop/60x60/gravity/center" loading="lazy" alt="Featured image of post {{ .Title }}" />
                 {{ end }}
             </div>
         {{ end }}
