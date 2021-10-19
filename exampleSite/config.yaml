@@ -48,7 +48,7 @@ params:
     article:
         math: false
         leftSide: true
-        menu: true
+        menu: false
         rightSide: true
         toc: true
         readingTime: true
