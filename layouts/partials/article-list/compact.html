@@ -33,6 +33,7 @@
                     <img src="{{ $Permalink }}" 
                         width="{{ $Width }}"
                         height="{{ $Height }}" 
+                        alt="{{ .Title }}"
                         loading="lazy">
                 {{ else }}
                     <img src="{{ $image.permalink }}?imageMogr2/crop/60x60/gravity/center" loading="lazy" alt="Featured image of post {{ .Title }}" />
