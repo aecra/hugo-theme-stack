@@ -10,11 +10,4 @@
             {{ end }}
         {{ end }}
     </aside>
-{{ else if .Site.Params.article.widgets.enabled }}
-    {{ $context := . }}
-    <aside class="sidebar right-sidebar sticky">
-        {{ range $widget := .Site.Params.article.widgets.enabled }}
-            {{ partial (printf "widget/%s" $widget) $context }}
-        {{ end }}
-    </aside>
 {{ end }}
