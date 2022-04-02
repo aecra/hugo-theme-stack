@@ -13,24 +13,19 @@
     </header>
     {{ end }}
 
-    <h2 class="article-title">
-        {{ $url := .RelPermalink }}
-        {{ if .Site.Params.TrimTrailingSlash }}
-            {{ $url = $url | replaceRE "/$" "" }}
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="{{ .RelPermalink }}">
+                {{- .Title -}}
+            </a>
+        </h2>
+    
+        {{ with .Params.description }}
+        <h3 class="article-subtitle">
+            {{ . }}
+        </h3>
         {{ end }}
-        <a href='{{ $url }}'>
-            {{- .Title -}}
-        </a>
-    </h2>
-
-    <h3 class="article-subtitle">
-        {{ if .Params.description }}
-            {{ .Params.description }}
-        {{ else }}
-            {{ .Summary }}
-        {{ end }}
-    </h3>
-
+    </div>
 
     {{ if or (not .Date.IsZero) (.Site.Params.article.readingTime) }}
     <footer class="article-time">
@@ -52,5 +47,16 @@
             </div>
         {{ end }}
     </footer>
+    {{ end }}
+
+    {{ if .IsTranslated }}
+        <footer class="article-translations">
+            {{ partial "helper/icon" "language" }}
+            <div>
+                {{ range .Translations }}
+                    <a href="{{ .Permalink }}" class="link">{{ .Language.LanguageName }}</a>
+                {{ end }}
+            </div>
+        </footer>
     {{ end }}
 </div>

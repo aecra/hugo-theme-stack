@@ -1,4 +1,4 @@
-{{- $query := first 1 (where .Site.Pages "Layout" "==" "search") -}}
+{{- $query := first 1 (where .Context.Site.Pages "Layout" "==" "search") -}}
 {{- if $query -}}
     {{- $searchPage := index $query 0 -}}
     {{ $url := $searchPage.RelPermalink }}
