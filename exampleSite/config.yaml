@@ -62,15 +62,7 @@ params:
 
     article:
         math: false
-        widgets:
-            enabled:
-                - search
-                - toc
-                - tag-cloud
-
-            tagCloud:
-                limit: 10
-
+        toc: true
         readingTime: true
         license:
             enabled: false
